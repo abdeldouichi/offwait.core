@@ -1,0 +1,80 @@
+@startuml
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+
+
+package "Manipultion des objets" {
+
+(""Créer un objet"") as (addItem)
+(""Créer une catégorie ""groupe d'objet"""") as (addCategory)
+(""Créer une image/logo/couverture"") as (bindImage)
+(""Associé une image à une catégorie"") as (imageCategory)
+(""Associé une image à une objet"") as (imageItem)
+(""Associé une image à une Option"") as (imageOption)
+(""Créer une option"") as (bindOtion)
+(""Associé une option à un objet"") as (optionItem)
+(""Associé une option à une option mére") as (optionOption)
+(""Créer un prix / Cout"") as (bindCost)
+(""Associé un prix à un Objet"") as (costItem)
+(""Associé un prix à une option"") as (costOption)
+(""Créer une durée de traitement"") as (bindTime)
+(""Associé une durée à un objet [pour une transition Etape]"") as (timeItem)
+(""Associé une durée à une option"") as (timeOtion)
+(""Créer une étape ou étape fille"") as (bindStep)
+(""Associé une liste d'étape à un Objet"") as (stepItem)
+(""Ajouter un office / guichet"") as (bindOffice)
+(""Associé un office à une étape"") as (officeStep)
+(""Associé un office à un objet"") as (officeItem)
+
+bindImage <|-- imageCategory
+bindImage <|-- imageItem
+bindImage <|-- imageOption
+
+bindOtion <|-- optionItem
+bindOtion <|-- optionOption
+
+bindCost <|-- costItem
+bindCost <|-- costOption
+
+bindTime <|-- timeItem
+bindTime <|-- timeOtion
+
+bindStep <|-- stepItem
+
+bindOffice <|-- officeStep
+bindOffice <|-- officeItem
+
+}
+
+
+:""Compte Principale ..Admin.."": as adminAccount
+:""Sous Compte ..Empl..."": as limitAcount
+limitAcount --|> adminAccount
+
+adminAccount --> (addCategory)
+adminAccount --> (addItem)
+
+
+adminAccount --> (bindImage)
+adminAccount --> (bindOtion)
+adminAccount --> (bindCost)
+adminAccount --> (bindTime)
+adminAccount --> (bindStep)
+adminAccount --> (bindOffice)
+
+
+
+
+
+
+
+note right of adminAccount : C'est un client banque
+note right of (limitAcount)
+Pour retirer de l'argent il faut avoir la carte bancaire,
+Il faut avoir de l'argent dans le compte bancaire
+end note
+
+
+
+@enduml<
